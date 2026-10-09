@@ -1,0 +1,22 @@
+package frc.robot.shooting;
+
+import org.wpilib.fields.Field;
+import org.wpilib.fields.Fields;
+import org.wpilib.math.geometry.Rotation2d;
+import org.wpilib.math.geometry.Transform2d;
+
+public final class ShotConstants {
+  public static final Field FIELD_LAYOUT = Fields.FRC_2026_REBUILT_WELDED.loadField();
+  public static final int RED_TARGET_TAG_ID = 10;
+  public static final int BLUE_TARGET_TAG_ID = 26;
+  public static final Transform2d TAG_TO_TARGET = new Transform2d(-0.65, 0.0, Rotation2d.ZERO); //was -0.62
+  public static final Transform2d ROBOT_TO_SHOOTER_EXIT =
+      new Transform2d(-0.1435885114, 0.0, Rotation2d.ZERO);
+  public static final double SHOT_LATENCY_SECONDS = 0.34;
+  public static final int PREDICTION_ITERATIONS = 2;
+  public static final double HEADING_TOLERANCE_RADIANS = Math.toRadians(1.0);
+  public static final double MAX_SHOOTING_SPEED_METERS_PER_SECOND = 3.0;
+  public static final double DEFAULT_TIME_OF_FLIGHT_SECONDS = 0.28;
+
+  private ShotConstants() {}
+}
