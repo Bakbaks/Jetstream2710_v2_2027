@@ -64,16 +64,16 @@
     },
     {
       "anchor": {
-        "x": 6.458587731811697,
-        "y": 2.3465049928673327
+        "x": 6.419771754636234,
+        "y": 2.592339514978602
       },
       "prevControl": {
-        "x": 7.542820786242848,
-        "y": 2.41554780358596
+        "x": 7.504004809067385,
+        "y": 2.6613823256972293
       },
       "nextControl": {
-        "x": 5.170044072982454,
-        "y": 2.2644518995995653
+        "x": 5.131228095806991,
+        "y": 2.5102864217108345
       },
       "isLocked": false,
       "linkedName": null
@@ -116,41 +116,7 @@
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "ExtendIntake",
-      "waypointRelativePos": 1.0263335584064484,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "ExtendIntake"
-        }
-      }
-    },
-    {
-      "name": "RunIntake",
-      "waypointRelativePos": 1.1343686698176672,
-      "endWaypointRelativePos": 4.213369345037151,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "RunIntake"
-        }
-      }
-    },
-    {
-      "name": "PrepShooter",
-      "waypointRelativePos": 4.2673869007427285,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "PrepShooter"
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.0,
     "maxAcceleration": 2.0,

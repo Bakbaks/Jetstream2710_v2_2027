@@ -36,6 +36,7 @@ import frc.robot.subsystems.shooter.ShooterIOSim;
 import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.vision.VisionIOReal;
 import frc.robot.subsystems.vision.VisionIOSim;
+import frc.robot.util.DashboardTelemetry;
 
 public class RobotContainer {
   private static final int DRIVER_PORT = 0;
@@ -68,10 +69,14 @@ public class RobotContainer {
       new SwerveRequest.SwerveDriveBrake();
   private boolean feederEnabledForShot;
   private LoggedNetworkChooser<Command> autoChooser;
+  private final DashboardTelemetry dashboardTelemetry;
 
   public RobotContainer() {
     configureBindings();
     configureAutos();
+    dashboardTelemetry =
+        new DashboardTelemetry(
+            robotState, shooter, this::getAllianceTarget, autoChooser::getSelected);
   }
 
   private void configureBindings() {
@@ -146,13 +151,13 @@ public class RobotContainer {
         .leftBumper()  
         .toggleOnTrue(
             Commands.parallel(
-                Commands.startEnd(
-                    () -> {
-                      shooter.setShotRPM(ShooterConstants.PASS_RPM);
-                      shooter.setGoal(Shooter.Goal.AIM);
-                    },
-                    () -> shooter.setGoal(Shooter.Goal.STOP),
-                    shooter),
+                // Commands.startEnd(
+                //     () -> {
+                //       shooter.setShotRPM(ShooterConstants.PASS_RPM);
+                //       shooter.setGoal(Shooter.Goal.AIM);
+                //     },
+                //     () -> shooter.setGoal(Shooter.Goal.STOP),
+                //     shooter),
                 DriveCommands.joystickDriveAtHeading(
                     drivetrain,
                     driverController::getLeftY,
@@ -299,6 +304,11 @@ public class RobotContainer {
 
   public void periodic() {
     robotState.periodic();
+    dashboardTelemetry.periodic();
+  }
+
+  public void publishDashboardTelemetry() {
+    dashboardTelemetry.publish();
   }
 
   private boolean hasDriverRotationOverride() {

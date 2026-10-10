@@ -19,6 +19,7 @@ public class Robot extends LoggedRobot {
     Logger.addDataReceiver(new NT4Publisher());
     Logger.start();
     robotContainer = new RobotContainer();
+    robotContainer.publishDashboardTelemetry();
   }
 
   @Override

@@ -95,6 +95,10 @@ public class Shooter extends SubsystemBase {
     return inputs.averageVelocityRPM;
   }
 
+  public double getRequestedShotRPM() {
+    return requestedShotRPM;
+  }
+
   public double[] getMotorVelocitiesRPM() {
     return Arrays.copyOf(inputs.velocityRPM, inputs.velocityRPM.length);
   }
