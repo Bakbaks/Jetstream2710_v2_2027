@@ -1,7 +1,7 @@
 package frc.robot.subsystems.shooter;
 
 public final class ShooterConstants {
-  public static final double IDLE_RPM = 0.0;
+  public static final double IDLE_RPM = 1500;
   public static final double REVERSE_RPM = -900.0;
   public static final double DEFAULT_SHOT_RPM = 1750.0;
   public static final double PASS_RPM = 1800.0;

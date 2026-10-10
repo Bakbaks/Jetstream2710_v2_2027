@@ -170,12 +170,11 @@ public class RobotContainer {
     //             driverController::getLeftY,
     //             driverController::getRightX));
 
+    //stack double trigger command cuz lazy
     auxController
         .rightTrigger()
         .whileTrue(
-            intakeExtension.goalCommand(
-                IntakeExtension.Goal.RETRACT, IntakeExtension.Goal.STOP));
-
+            intakeExtension.goalCommand(IntakeExtension.Goal.RETRACT, IntakeExtension.Goal.STOP));
     auxController
         .rightTrigger()
         .whileTrue(
@@ -252,7 +251,7 @@ public class RobotContainer {
                         () -> {
                           var shotSolution = shotCalculator.calculate(getAllianceTarget());
                           shooter.setShotRPM(shotSolution.shooterRPM());
-                          shooter.setGoal(Shooter.Goal.AIM);
+                          shooter.setGoal(Shooter.Goal.PREP);
                         },
                         shooter)
                     .finallyDo(() -> shooter.setGoal(Shooter.Goal.STOP));
@@ -273,7 +272,7 @@ public class RobotContainer {
             intakeExtension.goalCommand(
                 IntakeExtension.Goal.RETRACT, IntakeExtension.Goal.STOP),
             intakeRollers.goalCommand(IntakeRollers.Goal.INTAKE, IntakeRollers.Goal.STOP))
-        .withTimeout(3)
+        .withTimeout(2.5)
         .finallyDo(
             () -> {
               shooter.setGoal(Shooter.Goal.STOP);

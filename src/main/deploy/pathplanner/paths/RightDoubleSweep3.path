@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.6961777777777773,
-        "y": 1.754799999999999
+        "x": 3.1721683309557767,
+        "y": 2.3465049928673327
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.222377777777778,
-        "y": 0.7900999999999997
+        "x": 2.913395149786019,
+        "y": 1.1690870185449362
       },
       "isLocked": false,
       "linkedName": "EndofRightDump"
     },
     {
       "anchor": {
-        "x": 4.609216867469879,
-        "y": 0.7239036144578312
+        "x": 4.414279600570612,
+        "y": 0.5739087018544944
       },
       "prevControl": {
-        "x": 3.609216867469879,
-        "y": 0.7239036144578314
+        "x": 3.4146934008262644,
+        "y": 0.545143631358255
       },
       "nextControl": {
-        "x": 5.609216867469879,
-        "y": 0.7239036144578312
+        "x": 6.212753209700427,
+        "y": 0.6256633380884444
       },
       "isLocked": false,
       "linkedName": null
@@ -44,7 +44,12 @@
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.9936034115138562,
+      "rotationDegrees": 0.0
+    }
+  ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
@@ -83,8 +88,8 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -53.13010235415593
+    "velocity": 3.0,
+    "rotation": 33.46845490841033
   },
   "reversed": false,
   "folder": "RightSide",
