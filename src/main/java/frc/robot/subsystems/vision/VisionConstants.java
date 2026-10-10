@@ -28,8 +28,9 @@ public final class VisionConstants {
         new Rotation3d(Units.degreesToRadians(-45), 0.0, -Math.PI / 2.0))
   };
   public static final Matrix<N3, N1> SINGLE_TAG_STD_DEVS = VecBuilder.fill(0.7, 0.7, 0.6);
-  public static final Matrix<N3, N1> MULTI_TAG_STD_DEVS = VecBuilder.fill(0.3, 0.3, 0.3);
-  public static final double MAX_SINGLE_TAG_DISTANCE_METERS = 4.0;
+  public static final Matrix<N3, N1> MULTI_TAG_STD_DEVS = VecBuilder.fill(0.4, 0.4, 0.4);
+  public static final double MAX_SINGLE_TAG_DISTANCE_METERS = 3;
+  public static final double MAX_MULTI_TAG_DISTANCE_METERS = 4;
 
   private VisionConstants() {}
 }

@@ -86,6 +86,8 @@ public class VisionIOReal implements VisionIO {
     averageDistance /= validTags;
     if (validTags == 1 && averageDistance > VisionConstants.MAX_SINGLE_TAG_DISTANCE_METERS) {
       return VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+    }else if (averageDistance > VisionConstants.MAX_MULTI_TAG_DISTANCE_METERS){
+      return VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
     }
     Matrix<N3, N1> base =
         validTags > 1 ? VisionConstants.MULTI_TAG_STD_DEVS : VisionConstants.SINGLE_TAG_STD_DEVS;
