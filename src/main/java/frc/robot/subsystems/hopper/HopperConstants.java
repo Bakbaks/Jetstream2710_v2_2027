@@ -5,10 +5,10 @@ public final class HopperConstants {
   public static final double HOLD_FLOOR_RPM = 200.0;
   public static final double FEED_FEEDER_RPM = 4500.0;
   public static final double REVERSE_RPM = -900.0;
-  public static final double STATOR_CURRENT_LIMIT_AMPS = 40.0;
-  public static final double SUPPLY_CURRENT_LIMIT_AMPS = 40.0;
+  public static final double STATOR_CURRENT_LIMIT_AMPS = 60.0;
+  public static final double SUPPLY_CURRENT_LIMIT_AMPS = 20.0;
   public static final double FLOOR_STATOR_CURRENT_LIMIT_AMPS = 30.0;
-  public static final double FLOOR_SUPPLY_CURRENT_LIMIT_AMPS = 30.0;
+  public static final double FLOOR_SUPPLY_CURRENT_LIMIT_AMPS = 20.0;
 
 
   // TODO: Unvalidated values retained from the existing robot.
