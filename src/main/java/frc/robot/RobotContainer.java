@@ -219,7 +219,7 @@ public class RobotContainer {
         "ExtendIntake",
         intakeExtension
             .goalCommand(IntakeExtension.Goal.EXTEND, IntakeExtension.Goal.STOP)
-            .withTimeout(1.5));
+            .withTimeout(1));
 
     NamedCommands.registerCommand(
         "RunIntake",
