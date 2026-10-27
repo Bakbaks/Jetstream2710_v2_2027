@@ -34,7 +34,7 @@ public class IntakeRollersIOReal implements IntakeRollersIO {
             .withMotorOutput(
                 new MotorOutputConfigs()
                     .withInverted(inversion)
-                    .withNeutralMode(NeutralModeValue.Brake))
+                    .withNeutralMode(NeutralModeValue.Brake)) //Change to Coast
             .withCurrentLimits(
                 new CurrentLimitsConfigs()
                     .withStatorCurrentLimit(

@@ -24,15 +24,49 @@ import frc.robot.Ports;
 
 public class IntakeExtensionIOReal implements IntakeExtensionIO {
   private static final int MOTOR_ID = 12;
+  private static final int MOTOR2_ID = 61;
   private final TalonFX motor = new TalonFX(MOTOR_ID, Ports.FLOOREXTENDO_CAN_BUS);
+  private final TalonFX motor2 = new TalonFX(MOTOR2_ID, Ports.FLOOREXTENDO_CAN_BUS);
   private final MotionMagicVoltage positionRequest = new MotionMagicVoltage(0.0).withSlot(0);
+  private final MotionMagicVoltage positionRequest2 = new MotionMagicVoltage(0.0).withSlot(0);
   private final VoltageOut voltageRequest = new VoltageOut(0.0);
+  private final VoltageOut voltageRequest2 = new VoltageOut(0.0);
 
   public IntakeExtensionIOReal() {
     var maxMechanismSpeed =
         RPM.of(IntakeExtensionConstants.FREE_SPEED_RPM)
             .div(IntakeExtensionConstants.MOTOR_TO_PINION_REDUCTION);
     var config =
+        new TalonFXConfiguration()
+            .withMotorOutput(
+                new MotorOutputConfigs()
+                    .withInverted(InvertedValue.CounterClockwise_Positive)
+                    .withNeutralMode(NeutralModeValue.Brake))
+            .withCurrentLimits(
+                new CurrentLimitsConfigs()
+                    .withStatorCurrentLimit(
+                        Amps.of(IntakeExtensionConstants.STATOR_CURRENT_LIMIT_AMPS))
+                    .withStatorCurrentLimitEnable(true)
+                    .withSupplyCurrentLimit(
+                        Amps.of(IntakeExtensionConstants.SUPPLY_CURRENT_LIMIT_AMPS))
+                    .withSupplyCurrentLimitEnable(true))
+            .withFeedback(
+                new FeedbackConfigs()
+                    .withFeedbackSensorSource(FeedbackSensorSourceValue.RotorSensor)
+                    .withSensorToMechanismRatio(
+                        IntakeExtensionConstants.MOTOR_TO_PINION_REDUCTION))
+            .withMotionMagic(
+                new MotionMagicConfigs()
+                    .withMotionMagicCruiseVelocity(maxMechanismSpeed)
+                    .withMotionMagicAcceleration(maxMechanismSpeed.per(Second)))
+            .withSlot0(
+                new Slot0Configs()
+                    .withKP(IntakeExtensionConstants.KP)
+                    .withKI(IntakeExtensionConstants.KI)
+                    .withKD(IntakeExtensionConstants.KD)
+                    .withKV(12.0 / maxMechanismSpeed.in(RotationsPerSecond)));
+    
+    var config2 =
         new TalonFXConfiguration()
             .withMotorOutput(
                 new MotorOutputConfigs()
@@ -61,7 +95,9 @@ public class IntakeExtensionIOReal implements IntakeExtensionIO {
                     .withKI(IntakeExtensionConstants.KI)
                     .withKD(IntakeExtensionConstants.KD)
                     .withKV(12.0 / maxMechanismSpeed.in(RotationsPerSecond)));
+    
     motor.getConfigurator().apply(config);
+    motor2.getConfigurator().apply(config2);
   }
 
   @Override
@@ -84,20 +120,28 @@ public class IntakeExtensionIOReal implements IntakeExtensionIO {
         positionRequest.withPosition(
             Rotations.of(
                 positionInches / IntakeExtensionConstants.INCHES_PER_PINION_ROTATION)));
+    
+    motor2.setControl(
+        positionRequest.withPosition(
+            Rotations.of(
+                positionInches / IntakeExtensionConstants.INCHES_PER_PINION_ROTATION)));
   }
 
   @Override
   public void setPositionRotations(double rotations) {
     motor.setControl(positionRequest.withPosition(Rotations.of(rotations)));
+    motor2.setControl(positionRequest.withPosition(Rotations.of(rotations)));
   }
 
   @Override
   public void setVoltage(double volts) {
     motor.setControl(voltageRequest.withOutput(Volts.of(volts)));
+    motor2.setControl(voltageRequest.withOutput(Volts.of(volts)));
   }
 
   @Override
   public void setEncoderZero() {
     motor.setPosition(0.0);
+    motor2.setPosition(0.0);
   }
 }
