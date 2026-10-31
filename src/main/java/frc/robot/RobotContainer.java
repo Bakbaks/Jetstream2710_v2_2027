@@ -153,8 +153,8 @@ public class RobotContainer {
                 .until(this::hasDriverRotationOverride));
 
     driverController
-        .leftBumper()  
-        .toggleOnTrue(
+        .leftBumper()
+        .whileTrue(
             Commands.parallel(
                 // Commands.startEnd(
                 //     () -> {
