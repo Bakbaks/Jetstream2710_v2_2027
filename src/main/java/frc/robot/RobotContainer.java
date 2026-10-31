@@ -6,12 +6,13 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import java.util.Optional;
 import org.wpilib.command2.Command;
 import org.wpilib.command2.Commands;
-import org.wpilib.command2.button.CommandGamepad;
+import org.wpilib.command2.button.CommandNiDsXboxController;
 import org.wpilib.driverstation.Alliance;
 import org.wpilib.driverstation.MatchState;
 import org.wpilib.framework.RobotBase;
 import org.wpilib.math.geometry.Rotation2d;
 import org.wpilib.math.geometry.Translation2d;
+import org.wpilib.math.util.MathUtil;
 import org.littletonrobotics.junction.networktables.LoggedNetworkChooser;
 import frc.robot.commands.DriveCommands;
 import frc.robot.shooting.ShotCalculator;
@@ -43,6 +44,8 @@ public class RobotContainer {
   private static final int AUX_PORT = 1;
   private static final Rotation2d PASS_HEADING = Rotation2d.fromDegrees(180.0);
   private static final double DRIVER_ROTATION_OVERRIDE_THRESHOLD = 0.15;
+  // NI DS controller classes don't apply a deadband like Gamepad did, so apply it here.
+  private static final double STICK_DEADBAND = 0.1;
 
   private final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
   private final RobotState robotState =
@@ -63,8 +66,10 @@ public class RobotContainer {
           drivetrain::addVisionMeasurement);
   private final ShotCalculator shotCalculator = new ShotCalculator(robotState, new ShotTable());
   private final ShotVerifier shotVerifier = new ShotVerifier(robotState, shooter);
-  private final CommandGamepad driverController = new CommandGamepad(DRIVER_PORT);
-  private final CommandGamepad auxController = new CommandGamepad(AUX_PORT);
+  private final CommandNiDsXboxController driverController =
+      new CommandNiDsXboxController(DRIVER_PORT);
+  private final CommandNiDsXboxController auxController =
+      new CommandNiDsXboxController(AUX_PORT);
   private final SwerveRequest.SwerveDriveBrake brakeRequest =
       new SwerveRequest.SwerveDriveBrake();
   private boolean feederEnabledForShot;
@@ -83,10 +88,10 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
         DriveCommands.joystickDrive(
             drivetrain,
-            driverController::getLeftY,
-            driverController::getLeftX,
-            driverController::getRightX));
-    driverController.dpadDown().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+            this::getDriverLeftY,
+            this::getDriverLeftX,
+            this::getDriverRightX));
+    driverController.getHID().povDown().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
     shooter.setDefaultCommand(createPrepShooterCommand());
 
@@ -142,8 +147,8 @@ public class RobotContainer {
                 //     .finallyDo(() -> shooter.setGoal(Shooter.Goal.STOP)),
                 DriveCommands.joystickDriveAtHeading(
                     drivetrain,
-                    driverController::getLeftY,
-                    driverController::getLeftX,
+                    this::getDriverLeftY,
+                    this::getDriverLeftX,
                     () -> shotCalculator.calculate(getAllianceTarget()).desiredHeading()))
                 .until(this::hasDriverRotationOverride));
 
@@ -160,8 +165,8 @@ public class RobotContainer {
                 //     shooter),
                 DriveCommands.joystickDriveAtHeading(
                     drivetrain,
-                    driverController::getLeftY,
-                    driverController::getLeftX,
+                    this::getDriverLeftY,
+                    this::getDriverLeftX,
                     () -> PASS_HEADING))
                 .until(this::hasDriverRotationOverride));
 
@@ -171,9 +176,9 @@ public class RobotContainer {
     //         DriveCommands.highwayAssist(
     //             drivetrain,
     //             robotState::getPose,
-    //             driverController::getLeftX,
-    //             driverController::getLeftY,
-    //             driverController::getRightX));
+    //             this::getDriverLeftX,
+    //             this::getDriverLeftY,
+    //             this::getDriverRightX));
 
     //stack double trigger command cuz lazy
     auxController
@@ -204,11 +209,11 @@ public class RobotContainer {
             hopper.goalCommand(Hopper.Goal.REVERSE, Hopper.Goal.STOP));
 
     auxController
-        .faceLeft()
+        .x()
         .whileTrue(drivetrain.applyRequest(() -> brakeRequest));
 
     auxController
-        .faceDown()
+        .a()
         .toggleOnTrue(createPrepShooterCommand());
 
     
@@ -312,7 +317,19 @@ public class RobotContainer {
   }
 
   private boolean hasDriverRotationOverride() {
-    return Math.abs(driverController.getRightX()) > DRIVER_ROTATION_OVERRIDE_THRESHOLD;
+    return Math.abs(getDriverRightX()) > DRIVER_ROTATION_OVERRIDE_THRESHOLD;
+  }
+
+  private double getDriverLeftX() {
+    return MathUtil.applyDeadband(driverController.getLeftX(), STICK_DEADBAND);
+  }
+
+  private double getDriverLeftY() {
+    return MathUtil.applyDeadband(driverController.getLeftY(), STICK_DEADBAND);
+  }
+
+  private double getDriverRightX() {
+    return MathUtil.applyDeadband(driverController.getRightX(), STICK_DEADBAND);
   }
 
   public Command getAutonomousCommand() {
