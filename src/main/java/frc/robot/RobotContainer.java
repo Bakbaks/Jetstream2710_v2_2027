@@ -135,7 +135,7 @@ public class RobotContainer {
 
     driverController
         .rightBumper()
-        .toggleOnTrue(
+        .whileTrue(
             Commands.parallel(
                 // Commands.run(
                 //         () -> {
