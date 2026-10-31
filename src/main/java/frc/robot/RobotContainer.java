@@ -184,7 +184,7 @@ public class RobotContainer {
     auxController
         .rightTrigger()
         .whileTrue(
-            intakeExtension.goalCommand(IntakeExtension.Goal.RETRACT, IntakeExtension.Goal.STOP));
+            intakeExtension.goalCommand(IntakeExtension.Goal.EXTEND, IntakeExtension.Goal.STOP));
     auxController
         .rightTrigger()
         .whileTrue(
@@ -193,7 +193,7 @@ public class RobotContainer {
     auxController
         .leftTrigger()
         .whileTrue(
-            intakeExtension.goalCommand(IntakeExtension.Goal.EXTEND, IntakeExtension.Goal.STOP));
+            intakeExtension.goalCommand(IntakeExtension.Goal.RETRACT, IntakeExtension.Goal.STOP));
 
     auxController
         .leftBumper()
@@ -280,7 +280,7 @@ public class RobotContainer {
                 shooter,
                 hopper),
             intakeExtension.goalCommand(
-                IntakeExtension.Goal.RETRACT, IntakeExtension.Goal.STOP),
+                IntakeExtension.Goal.EXTEND, IntakeExtension.Goal.STOP),
             intakeRollers.goalCommand(IntakeRollers.Goal.INTAKE, IntakeRollers.Goal.STOP))
         .withTimeout(2.5)
         .finallyDo(

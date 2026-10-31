@@ -27,8 +27,9 @@ public class IntakeExtension extends SubsystemBase {
 
     switch (goal) {
       case STOP -> io.stop();
-      case EXTEND -> io.setVoltage(IntakeExtensionConstants.OPEN_LOOP_VOLTS);
-      case RETRACT -> io.setVoltage(-IntakeExtensionConstants.OPEN_LOOP_VOLTS);
+      // Negative voltage physically extends the intake on the real robot.
+      case EXTEND -> io.setVoltage(-IntakeExtensionConstants.OPEN_LOOP_VOLTS);
+      case RETRACT -> io.setVoltage(IntakeExtensionConstants.OPEN_LOOP_VOLTS);
     }
 
     Logger.recordOutput("IntakeExtension/Goal", goal);
