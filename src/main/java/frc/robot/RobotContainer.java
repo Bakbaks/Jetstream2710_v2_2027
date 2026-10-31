@@ -280,7 +280,7 @@ public class RobotContainer {
                 shooter,
                 hopper),
             intakeExtension.goalCommand(
-                IntakeExtension.Goal.EXTEND, IntakeExtension.Goal.STOP),
+                IntakeExtension.Goal.RETRACT, IntakeExtension.Goal.STOP),
             intakeRollers.goalCommand(IntakeRollers.Goal.INTAKE, IntakeRollers.Goal.STOP))
         .withTimeout(2.5)
         .finallyDo(
