@@ -6,6 +6,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import java.util.Optional;
 import org.wpilib.command2.Command;
 import org.wpilib.command2.Commands;
+import org.wpilib.command2.WaitCommand;
 import org.wpilib.command2.button.CommandNiDsXboxController;
 import org.wpilib.driverstation.Alliance;
 import org.wpilib.driverstation.MatchState;
@@ -184,7 +185,7 @@ public class RobotContainer {
     auxController
         .rightTrigger()
         .whileTrue(
-            intakeExtension.goalCommand(IntakeExtension.Goal.EXTEND, IntakeExtension.Goal.STOP));
+            intakeExtension.goalCommand(IntakeExtension.Goal.RETRACT, IntakeExtension.Goal.STOP));
     auxController
         .rightTrigger()
         .whileTrue(
@@ -193,7 +194,7 @@ public class RobotContainer {
     auxController
         .leftTrigger()
         .whileTrue(
-            intakeExtension.goalCommand(IntakeExtension.Goal.RETRACT, IntakeExtension.Goal.STOP));
+            intakeExtension.goalCommand(IntakeExtension.Goal.EXTEND, IntakeExtension.Goal.STOP));
 
     auxController
         .leftBumper()
@@ -208,8 +209,8 @@ public class RobotContainer {
         .whileTrue(
             hopper.goalCommand(Hopper.Goal.REVERSE, Hopper.Goal.STOP));
 
-    auxController
-        .x()
+    driverController
+        .y()
         .whileTrue(drivetrain.applyRequest(() -> brakeRequest));
 
     auxController
@@ -279,8 +280,11 @@ public class RobotContainer {
                 },
                 shooter,
                 hopper),
-            intakeExtension.goalCommand(
-                IntakeExtension.Goal.RETRACT, IntakeExtension.Goal.STOP),
+            Commands.sequence(
+                Commands.waitSeconds(1),
+                intakeExtension.goalCommand(
+                IntakeExtension.Goal.RETRACT, IntakeExtension.Goal.STOP)
+            ),
             intakeRollers.goalCommand(IntakeRollers.Goal.INTAKE, IntakeRollers.Goal.STOP))
         .withTimeout(2.5)
         .finallyDo(

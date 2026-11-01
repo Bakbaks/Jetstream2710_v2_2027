@@ -64,12 +64,12 @@
     },
     {
       "anchor": {
-        "x": 3.1721683309557767,
-        "y": 2.3465049928673327
+        "x": 2.4476034236804565,
+        "y": 2.191241084165479
       },
       "prevControl": {
-        "x": 3.4050641940085575,
-        "y": 2.6182168330955777
+        "x": 2.9651497860199716,
+        "y": 2.747603423680457
       },
       "nextControl": null,
       "isLocked": false,
@@ -133,7 +133,7 @@
     },
     {
       "name": "RunIntake",
-      "waypointRelativePos": 0.6004962779156596,
+      "waypointRelativePos": 0.4,
       "endWaypointRelativePos": 3.2436724565756636,
       "command": {
         "type": "named",
@@ -164,7 +164,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -130.21830842110998
+    "rotation": -136.16913932790743
   },
   "reversed": false,
   "folder": "RightSide",

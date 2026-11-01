@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.1721683309557767,
-        "y": 2.3465049928673327
+        "x": 2.4476034236804565,
+        "y": 2.191241084165479
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.045959503233918,
-        "y": 1.6034731472020984
+        "x": 3.321394595958598,
+        "y": 1.4482092385002447
       },
       "isLocked": false,
       "linkedName": "EndofRightDump"
@@ -112,12 +112,12 @@
     },
     {
       "anchor": {
-        "x": 3.1721683309557767,
-        "y": 2.3465049928673327
+        "x": 2.4476034236804565,
+        "y": 2.191241084165479
       },
       "prevControl": {
-        "x": 3.407272703807062,
-        "y": 2.539830574380394
+        "x": 2.6827077965317416,
+        "y": 2.3845666656785403
       },
       "nextControl": null,
       "isLocked": false,
@@ -191,7 +191,7 @@
   "eventMarkers": [
     {
       "name": "ExtendIntake",
-      "waypointRelativePos": 1.2856178257933815,
+      "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -233,13 +233,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -130.21830842110998
+    "rotation": -136.16913932790743
   },
   "reversed": false,
   "folder": "RightSide",
   "idealStartingState": {
     "velocity": 0.35,
-    "rotation": -130.21830842110998
+    "rotation": -136.16913932790743
   },
   "useDefaultConstraints": true
 }

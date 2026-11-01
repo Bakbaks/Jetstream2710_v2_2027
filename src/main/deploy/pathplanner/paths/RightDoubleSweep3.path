@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.1721683309557767,
-        "y": 2.3465049928673327
+        "x": 2.4476034236804565,
+        "y": 2.191241084165479
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.913395149786019,
-        "y": 1.169087018544936
+        "x": 2.188830242510699,
+        "y": 1.0138231098430819
       },
       "isLocked": false,
       "linkedName": "EndofRightDump"
@@ -106,7 +106,7 @@
   "folder": "RightSide",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -130.21830842110998
+    "rotation": -136.16913932790743
   },
   "useDefaultConstraints": true
 }
