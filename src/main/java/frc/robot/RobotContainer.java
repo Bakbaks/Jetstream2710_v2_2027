@@ -43,7 +43,8 @@ import frc.robot.util.DashboardTelemetry;
 public class RobotContainer {
   private static final int DRIVER_PORT = 0;
   private static final int AUX_PORT = 1;
-  private static final Rotation2d PASS_HEADING = Rotation2d.fromDegrees(180.0);
+  private static final Rotation2d BLUE_PASS_HEADING = Rotation2d.fromDegrees(180.0);
+  private static final Rotation2d RED_PASS_HEADING = Rotation2d.ZERO;
   private static final double DRIVER_ROTATION_OVERRIDE_THRESHOLD = 0.15;
   // NI DS controller classes don't apply a deadband like Gamepad did, so apply it here.
   private static final double STICK_DEADBAND = 0.1;
@@ -168,7 +169,7 @@ public class RobotContainer {
                     drivetrain,
                     this::getDriverLeftY,
                     this::getDriverLeftX,
-                    () -> PASS_HEADING))
+                    this::getAlliancePassHeading))
                 .until(this::hasDriverRotationOverride));
 
     // driverController
@@ -307,6 +308,12 @@ public class RobotContainer {
                     .toPose2d()
                     .plus(ShotConstants.TAG_TO_TARGET)
                     .getTranslation());
+  }
+
+  private Rotation2d getAlliancePassHeading() {
+    return MatchState.getAlliance().orElse(Alliance.BLUE) == Alliance.RED
+        ? RED_PASS_HEADING
+        : BLUE_PASS_HEADING;
   }
 
   
